@@ -28,6 +28,7 @@ const router = createBrowserRouter([
     {path: "/profile/favitems", element: <MyFavItems />,},
     {path: "/profile/address", element: <MyAddress />,},
     {path: "/profile/payment", element: <MyPayment />,},
+    {path: "/admin" ,element: <Admin />},
   ],
   },
 ]);
