@@ -4,7 +4,6 @@ export default function View () {
     return (
         <div className="Home">
             <Navbar />
-            
 
         </div>
     )

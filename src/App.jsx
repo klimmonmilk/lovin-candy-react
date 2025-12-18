@@ -8,6 +8,7 @@ import MyFavItems from "./views/MyFavItems";
 import MyAddress from "./views/MyAddress";
 import MyPayment from "./views/MyPayment";
 import Products from "./views/Products";
+import Admin from "./views/Admin";
 
 const router = createBrowserRouter([
   {
