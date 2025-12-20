@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import candies from "../data/candies";
+import specialSets from "../data/specialSets";
 
-export default function PopularPicks() {
+export default function SpecialSets() {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -22,7 +22,7 @@ export default function PopularPicks() {
         <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <h2 className="text-3xl font-['Jua'] mb-2">
-              🍬 Popular Picks
+              🍭🍫🍬🪅Special Sets🪅🍬🍫🍭
             </h2>
             <p className="text-gray-600 font-['Patrick_Hand'] text-lg">
               Sweet favorites everyone’s loving right now
@@ -31,7 +31,7 @@ export default function PopularPicks() {
 
           {/* CTA */}
           <Link
-            to="/products"
+            to="/SpecialSetsPage"
             className="
               flex items-center gap-2
               text-blue-500 font-medium
@@ -40,7 +40,7 @@ export default function PopularPicks() {
               self-start sm:self-auto
             "
           >
-            View all products →
+            View all Special Sets →
           </Link>
         </div>
 
@@ -77,7 +77,7 @@ export default function PopularPicks() {
               [&::-webkit-scrollbar]:hidden
             "
           >
-            {candies.map((candy, index) => (
+            {specialSets.map((special, index) => (
               <div
                 key={index}
                 className="
@@ -94,18 +94,18 @@ export default function PopularPicks() {
               >
                 <div className="w-full h-48 rounded-xl mb-4 overflow-hidden bg-[#EAF9FF]">
                   <img
-                    src={candy.image}
-                    alt={candy.name}
+                    src={special.image}
+                    alt={special.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
 
                 <h3 className="font-['Jua'] text-lg mb-1">
-                  {candy.name}
+                  {special.name}
                 </h3>
 
                 <p className="text-sm text-gray-500 font-['Patrick_Hand'] mb-3">
-                  {candy.desc}
+                  {special.desc}
                 </p>
 
                 <button className="

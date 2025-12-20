@@ -23,9 +23,9 @@ export default function Hero() {
             "
           >
             Welcome to{" "}
-            <span className="text-[#FF74B1]">LovinCandy</span>
-          </h1>
-
+              <span className="text-[#FF74B1]">Lovin</span>
+              <span className="text-[#12AAFF]">Candy</span>
+              </h1>
           <p
             className="
               font-['Patrick Hand']

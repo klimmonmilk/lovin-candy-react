@@ -7,14 +7,12 @@ export default function Footer() {
 
         {/* LEFT */}
         <div>
-        <div className="max-w-md">
+        <div className="max-w-dvh">
           <h3 className="font-['Jua'] text-xl mb-3">About us</h3>
           <p>
             Made with love for sweets, candies, and all the little treats.
             <br></br>
-            LovinCandy lets you create your own taste of happiness,
-            <br></br>
-            sweet, playful, and totally you.
+            LovinCandy lets you create your own taste of happiness,sweet, playful, and totally you.
           </p>
           <p className="mt-4">Have fun customizing every bite!</p>
         </div>
