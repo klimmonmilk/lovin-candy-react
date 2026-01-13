@@ -12,7 +12,7 @@ export default function NavbarAdmin() {
             alt="LovinCandy logo"
             className="h-10 w-auto object-contain md:h-14"
           />
-          <span>LovinCandy</span>
+          <span className="hidden sm:inline">LovinCandy</span>
         </Link>
 
         {/* Menu (desktop only) */}

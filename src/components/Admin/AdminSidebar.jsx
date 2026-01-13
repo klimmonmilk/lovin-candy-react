@@ -2,10 +2,10 @@ import { NavLink } from "react-router-dom";
 
 const menus = [
   { to: "/admin", label: "Home", icon: "🏰", end: true },
-  { to: "/admin/AdminDashboard", label: "Dashboard", icon: "📊"},
-  { to: "/admin/AdminUsers", label: "Users", icon: "👤" },
-  { to: "/admin/products", label: "Products", icon: "🍬" },
-  { to: "/admin/AdminChat", label: "Chat", icon: "💬" },
+  { to: "/admin/dashboard", label: "Dashboard", icon: "📊" },
+  { to: "/admin/users", label: "Users", icon: "👤" },
+  { to: "/admin/products", label: "Products", icon: "🍭" },
+  { to: "/admin/chat", label: "Chat", icon: "💬" },
 ];
 
 export default function AdminSidebar({ isOpen }) {

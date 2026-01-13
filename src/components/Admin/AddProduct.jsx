@@ -1,8 +1,18 @@
 export default function AddProduct() {
+
     return ( 
-        <div>
+        <section>
+            <div>
             
         </div>
+    
+
+        </section>
+        
     )
-  
 }
+
+
+
+
+
