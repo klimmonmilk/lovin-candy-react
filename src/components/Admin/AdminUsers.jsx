@@ -1,24 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-const API = import.meta.env.VITE_API_URL;
+const RAW_API = import.meta.env.VITE_API_URL;
 
 export default function AdminUsers() {
+  const API_BASE = useMemo(() => {
+    if (!RAW_API) return "";
+    return RAW_API.endsWith("/api") ? RAW_API : `${RAW_API}/api`;
+  }, []);
+
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API}/api/users`);
+      setError("");
+
+      if (!API_BASE) throw new Error("VITE_API_URL is missing");
+
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("No token found in localStorage. Please login first.");
+
+      const res = await fetch(`${API_BASE}/users`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
       const json = await res.json();
+      if (!res.ok) throw new Error(json.message || "Failed to fetch users");
 
-      if (!res.ok) throw new Error(json.message || "Fetch failed");
-
-      setUsers(json.data);
+      setUsers(json.data || []);
     } catch (err) {
       setError(err.message);
+      setUsers([]);
     } finally {
       setLoading(false);
     }
@@ -26,28 +40,17 @@ export default function AdminUsers() {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [API_BASE]);
 
+  const deleteAddress = async (userId) => {
+    if (!confirm("Delete user address?")) return;
 
-  const deleteAddress = async (id) => {
-    if (!confirm("Delete address?")) return;
+    const token = localStorage.getItem("token");
 
-    await fetch(`${API}/api/users/${id}`, {
+    await fetch(`${API_BASE}/users/${userId}`, {
       method: "DELETE",
-    });
-
-    fetchUsers();
-  };
-
- 
-  const updateAddress = async (id) => {
-    const address = prompt("New address:");
-    if (!address) return;
-
-    await fetch(`${API}/api/users/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ address }),
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     fetchUsers();
@@ -73,28 +76,30 @@ export default function AdminUsers() {
           </thead>
 
           <tbody>
-            {users.map((u) => (
-              <tr key={u._id} className="border-t text-sm">
-                <td className="p-3">{u.username}</td>
-                <td className="p-3">{u.email}</td>
-                <td className="p-3">{u.role}</td>
-                <td className="p-3">{u.address || "-"}</td>
-                <td className="p-3 flex gap-2">
-                  <button
-                    onClick={() => updateAddress(u._id)}
-                    className="px-3 py-1 bg-yellow-200 rounded-lg"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => deleteAddress(u._id)}
-                    className="px-3 py-1 bg-pink-300 rounded-lg"
-                  >
-                    Delete Address
-                  </button>
+            {users.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="p-6 text-center text-gray-500">
+                  No users found
                 </td>
               </tr>
-            ))}
+            ) : (
+              users.map((u) => (
+                <tr key={u._id} className="border-t text-sm">
+                  <td className="p-3">{u.username}</td>
+                  <td className="p-3">{u.email}</td>
+                  <td className="p-3">{u.role}</td>
+                  <td className="p-3">{u.address || "-"}</td>
+                  <td className="p-3">
+                    <button
+                      onClick={() => deleteAddress(u._id)}
+                      className="px-3 py-1 bg-pink-300 rounded-lg hover:bg-pink-400"
+                    >
+                      Delete Address
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
