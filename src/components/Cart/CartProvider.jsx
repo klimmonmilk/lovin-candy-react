@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CartContext } from "./CartContext";
+import { CartContext } from "../Cart/CartContext.jsx";
 
 export function UseCartHook() {
   const context = React.useContext(CartContext);
