@@ -79,23 +79,20 @@ export default function Customize() {
   }
 
   function handleCheckout() {
-    const candyListText = selectedCandies.map(candy => candy.name).join(", ");
-
   addToCart({
     _id: `custom-${crypto.randomUUID()}`, 
     name: `Custom ${selectedSize.name}`,
     imageUrl: selectedSize.image,
     price: selectedSize.price,
-    description: `Included: ${candyListText}`,
-    selectedCandies: selectedCandies,
-    quantity: 1,
-    isCustom: true
+    details: {
+      size: selectedSize.name,
+      candies: selectedCandies.map(c => c.name)
+    },
+    isCustom: true,
+    quantity: 1
   });
-
-    navigate("/shoppingcart");
-    window.scrollTo(0, 0);
-  }
-
+  navigate("/shoppingcart");
+}
   const isCartFull = selectedCandies.length >= (selectedSize?.candyLimit || 0);
 
   return (
