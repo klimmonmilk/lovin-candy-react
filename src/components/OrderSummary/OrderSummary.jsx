@@ -39,7 +39,7 @@ const OrderSummary = ({ cartItems }) => {
       <hr className="border-gray-300 my-4" />
 
       <div className="flex items-center justify-between text-sm mb-6">
-        <span className="text-gray-600">Vat (40%)</span>
+        <span className="text-gray-600">Vat (7%)</span>
         <span className="font-semibold text-black">${vat.toFixed(2)}</span>
       </div>
 
