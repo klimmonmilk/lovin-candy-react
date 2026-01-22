@@ -51,7 +51,7 @@ const Checkout = () => {
             {/* Header */}
             <div className="mb-8">
               <h1 className="text-3xl md:text-4xl text-[#2B3A55] font-archivo font-bold text-center mb-2">
-                Guest Checkout
+                Checkout
               </h1>
               <p className="text-center text-[#7A8CA5] text-sm">
                 Log in to check out faster and find your past purchases
