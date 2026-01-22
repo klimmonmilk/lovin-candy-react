@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { AiTwotoneSafetyCertificate } from "react-icons/ai";
 import { GoArrowLeft } from "react-icons/go";
-
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../Cart/UserCart.jsx";
 
 const Checkout = () => {
   const { cartItems } = useCart();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -23,7 +24,7 @@ const Checkout = () => {
     0,
   );
   const platformFee = 0.96;
-  const estimatedTaxes = 0;
+  const estimatedTaxes = subtotal * 0.07;
   const total = (subtotal + platformFee + estimatedTaxes).toFixed(2);
 
   const handleInputChange = (e) => {
@@ -40,7 +41,8 @@ const Checkout = () => {
       return;
     }
     console.log("Form submitted:", formData);
-    alert("Payment processing... (Demo only)");
+    alert("Payment Success!(Demo only)");
+    navigate("/profile/address");
   };
 
   return (
@@ -51,13 +53,11 @@ const Checkout = () => {
             {/* Header */}
             <div className="mb-8">
               <h1 className="text-3xl md:text-4xl text-[#2B3A55] font-archivo font-bold text-center mb-2">
-                Guest Checkout
+                Checkout
               </h1>
               <p className="text-center text-[#7A8CA5] text-sm">
-                Log in to check out faster and find your past purchases
-                <button className="ml-2 text-[#6EDCFF] hover:text-[#3CC8FF] font-medium underline">
-                  Log in
-                </button>
+                Hey you are finally here? soooo. . .i guess you know right what
+                to do?
               </p>
             </div>
 
@@ -364,9 +364,6 @@ const Checkout = () => {
                             <h5 className="text-sm text-[#2B3A55] font-bold">
                               {item.name}
                             </h5>
-                            <p className="text-xs text-[#7A8CA5]">
-                              {item.quantity} Desktop License
-                            </p>
                           </div>
                           <div className="text-right">
                             <p className="text-sm text-[#1e3a8a] font-bold">

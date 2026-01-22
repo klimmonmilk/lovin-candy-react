@@ -55,9 +55,9 @@ const ShoppingCart = () => {
                       CHECKOUT
                     </button>
                   </Link>
-                  <Link to="/checkout">
+                  <Link to="/register">
                     <button className="w-full max-w-md px-8 py-4 bg-[#ffc0e3] hover:bg-[#ffb0d8] text-[#00a6e8] font-bold text-lg rounded-full border-2 border-black transition">
-                      CHECKOUT AS GUEST
+                      GET ACCOUNT BEFORE CHECKOUT
                     </button>
                   </Link>
                 </div>
