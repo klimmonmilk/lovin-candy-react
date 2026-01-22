@@ -54,7 +54,7 @@ export default function ProfileOrder () {
     default:
       return 'bg-gray-100 text-gray-700';
   }
-};
+};  
 
   if (loading) return <div className="p-10 text-center">Loading orders...</div>;
 
@@ -105,6 +105,7 @@ export default function ProfileOrder () {
               className="card-img w-16 h-16 md:w-20 md:h-20 object-cover rounded-lg" 
               src={order.items?.[0]?.imageUrl || "/placeholder.png"} 
               alt="product" 
+              onError={(e) => { e.target.src = "/placeholder.png" }}
             />
             <div className="detail2">
               <p className="text-sm font-bold">Order id : {order._id.substring(order._id.length - 8)}</p>
@@ -125,13 +126,53 @@ export default function ProfileOrder () {
         <h4 className="text-sm font-bold mb-3 text-gray-500 uppercase tracking-wide">Order Items:</h4>
         <div className="space-y-3">
           {order.items?.map((item, idx) => (
-            <div key={idx} className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-3 pb-5">
-                <img src={item.imageUrl || "/placeholder.png"} className="w-10 h-10 object-cover rounded shadow-sm" />
-                <span className="font-medium">{item.name}</span>
-              </div>
-              <div className="text-gray-500">
-                {item.quantity} x {item.price} THB
+            <div key={idx} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+              <div className="flex items-start justify-between text-sm">
+                <div className="flex items-start gap-3">
+                  <img 
+                    src={item.imageUrl || "/placeholder.png"} 
+                    className="w-12 h-12 md:w-14 md:h-14 object-cover rounded-lg shadow-sm border border-gray-100" 
+                    alt={item.name}
+                    onError={(e) => { e.target.src = "/placeholder.png" }}
+                  />
+                                    
+                  <div className="flex flex-col">
+                    <span className="font-bold text-[#2B3A55]">{item.name}</span>
+                    
+                    {item.isCustom && item.customDetails && (
+                      <div className="mt-2 bg-pink-50/50 p-3 rounded-lg border border-pink-100/50 mb-5">
+                        <p className="text-[10px] font-bold text-pink-500 uppercase tracking-wider mb-2">
+                          🍬 Customization Details:
+                        </p>
+                        <div className="text-[11px] text-[#555] space-y-1">
+                          {(item.customDetails.size || item.customDetails.packageName) && (
+                            <div className="flex gap-1">
+                              <span className="font-bold capitalize text-pink-400 min-w-[60px]">Size:</span>
+                              <span className="text-gray-600">{item.customDetails.size || item.customDetails.packageName}</span>
+                            </div>
+                          )}
+
+                          {(item.customDetails.candies || item.customDetails.selectedCandies) && (
+                            <div className="flex items-start gap-1">
+                              <span className="font-bold capitalize text-pink-400 min-w-[60px]">Candies:</span>
+                              <span className="text-gray-600 leading-relaxed italic">
+                                {Array.isArray(item.customDetails.candies || item.customDetails.selectedCandies)
+                                  ? (item.customDetails.candies || item.customDetails.selectedCandies).join(', ')
+                                  : String(item.customDetails.candies || item.customDetails.selectedCandies)
+                                }
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="text-right whitespace-nowrap ml-4">
+                  <p className="font-semibold text-[#2B3A55]">{item.quantity} x {item.price} THB</p>
+                  <p className="text-[10px] text-gray-400 font-bold">Total: {item.quantity * item.price} THB</p>
+                </div>
               </div>
             </div>
           ))}
