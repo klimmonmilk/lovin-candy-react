@@ -23,7 +23,7 @@ const Checkout = () => {
     0,
   );
   const platformFee = 0.96;
-  const estimatedTaxes = 0;
+  const estimatedTaxes = 0.07;
   const total = (subtotal + platformFee + estimatedTaxes).toFixed(2);
 
   const handleInputChange = (e) => {
